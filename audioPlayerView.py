@@ -327,16 +327,16 @@ class audioPlayerView:
 
         # default next selection is the beginning
         next_selection = 0
-
-        # make sure at least one item is selected
-        if len(selection_indices) == self.list_song.size() - 1:
-            # Get the last selection, remember they are strings for some reason
-            # so convert to int
-            last_selection = int(selection_indices[-1])
-            next_selection = last_selection - 1
-        if int(selection_indices[-1]) == 0:
-            last_selection = 0
+        
+        # default last selection is the beginning
+        last_selection = selection_indices[0]
+        
+        if last_selection == 0:
             next_selection = self.list_song.size() - 1
+        
+        # make sure at least one item is selected
+        elif last_selection <= self.list_song.size() - 1:
+            next_selection = last_selection - 1
 
         self.list_song.selection_clear(last_selection)
         self.list_song.activate(next_selection)
